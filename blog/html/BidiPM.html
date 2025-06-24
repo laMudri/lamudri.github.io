@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" xml:lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="James Wood" />
+  <meta name="dcterms.date" content="2020-02-24" />
+  <title>Pattern Matching in a Bidirectional System</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link href="./Agda.css" rel="stylesheet" type="text/css" media="all">
+  <script>
+  MathJax.Hub.Config({
+      jax: ["input/TeX","output/HTML-CSS"],
+      displayAlign: "left",
+      displayIndent: "1ex",
+      TeX: {
+        extensions: ["enclose.js"],
+        Macros: {
+          ul: ["\\enclose{bottom}{#1}", 1]
+        }
+      }
+  });
+  </script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Pattern Matching in a Bidirectional System</h1>
+<p class="author">James Wood</p>
+<p class="date">2020-02-24</p>
+</header>
+<!--
+<pre class="Agda"><a id="492" class="Keyword">module</a> <a id="499" href="BidiPM.html" class="Module">BidiPM</a> <a id="506" class="Keyword">where</a>
+
+  <a id="515" class="Keyword">open</a> <a id="520" class="Keyword">import</a> <a id="527" href="Level.html" class="Module">Level</a> <a id="533" class="Keyword">using</a> <a id="539" class="Symbol">(</a><a id="540" href="Agda.Primitive.html#408" class="Postulate">Level</a><a id="545" class="Symbol">)</a>
+
+  <a id="550" class="Keyword">private</a>
+    <a id="562" class="Keyword">variable</a>
+      <a id="577" href="BidiPM.html#577" class="Generalizable">a</a> <a id="579" href="BidiPM.html#579" class="Generalizable">b</a> <a id="581" href="BidiPM.html#581" class="Generalizable">c</a> <a id="583" class="Symbol">:</a> <a id="585" href="Agda.Primitive.html#408" class="Postulate">Level</a>
+      <a id="597" href="BidiPM.html#597" class="Generalizable">A</a> <a id="599" class="Symbol">:</a> <a id="601" class="PrimitiveType">Set</a> <a id="605" href="BidiPM.html#577" class="Generalizable">a</a>
+      <a id="613" href="BidiPM.html#613" class="Generalizable">B</a> <a id="615" class="Symbol">:</a> <a id="617" class="PrimitiveType">Set</a> <a id="621" href="BidiPM.html#579" class="Generalizable">b</a>
+      <a id="629" href="BidiPM.html#629" class="Generalizable">C</a> <a id="631" class="Symbol">:</a> <a id="633" class="PrimitiveType">Set</a> <a id="637" href="BidiPM.html#581" class="Generalizable">c</a>
+</pre>-->
+<p>Today I will write about a topic I find is talked about surprisingly little. The aim for this piece is to elucidate an apparent mismatch between theory and practice which for a couple of years I haven’t properly understood. Specifically, I want to compare pattern matching in a bidirectional core calculus to the equational notation for pattern matching we get in bidirectionally typed languages like Epigram, Agda, and Idris.</p>
+<p>Pattern matching, I hope everyone reading is familiar with. To put it in fancy abstract terms, pattern matching is how we eliminate positive type formers, such as sums. Positive type formers, and thus pattern matching, are extra-present in my work in linear type theories, because product types bifurcate into positive and negative products, so we have no choice but to have some products be eliminated by pattern matching.</p>
+<h2 id="bidirectional-typing">Bidirectional typing</h2>
+<p>Bidirectional typing may be less familiar. In its simplest reading, it is a type-checking methodology that stands in contrast to both full type inference (à la ML and Haskell) and Church-style unique types syntax (as found in TaPL and Dhall). It gives a theoretical backing to the Boring Haskell consensus that all top-level definitions should have a type annotation, but no more annotations are needed on subterms. For example, in a bidirectional core syntax, we could write the following.</p>
+<p><span class="math display">\[
+\begin{aligned}
+  &amp; \mathrm{let}~S = \left(\lambda f. \lambda g. \lambda x.~
+    \ul{f~\ul x~\left(\ul{g~\ul x}\right)}\right)
+    : (A \to B \to C) \to (A \to B) \to A \to C \\
+  &amp; \mathrm{in}~\ldots
+\end{aligned}
+\]</span></p>
+<p>This is comparable to the following Agda declaration (where we have fixed types <code>A</code>, <code>B</code>, and <code>C</code>).</p>
+<pre class="Agda">  <a id="S"></a><a id="2371" href="BidiPM.html#2371" class="Function">S</a> <a id="2373" class="Symbol">:</a> <a id="2375" class="Symbol">(</a><a id="2376" href="BidiPM.html#597" class="Generalizable">A</a> <a id="2378" class="Symbol">→</a> <a id="2380" href="BidiPM.html#613" class="Generalizable">B</a> <a id="2382" class="Symbol">→</a> <a id="2384" href="BidiPM.html#629" class="Generalizable">C</a><a id="2385" class="Symbol">)</a> <a id="2387" class="Symbol">→</a> <a id="2389" class="Symbol">(</a><a id="2390" href="BidiPM.html#597" class="Generalizable">A</a> <a id="2392" class="Symbol">→</a> <a id="2394" href="BidiPM.html#613" class="Generalizable">B</a><a id="2395" class="Symbol">)</a> <a id="2397" class="Symbol">→</a> <a id="2399" href="BidiPM.html#597" class="Generalizable">A</a> <a id="2401" class="Symbol">→</a> <a id="2403" href="BidiPM.html#629" class="Generalizable">C</a>
+  <a id="2407" href="BidiPM.html#2371" class="Function">S</a> <a id="2409" href="BidiPM.html#2409" class="Bound">f</a> <a id="2411" href="BidiPM.html#2411" class="Bound">g</a> <a id="2413" href="BidiPM.html#2413" class="Bound">x</a> <a id="2415" class="Symbol">=</a> <a id="2417" href="BidiPM.html#2409" class="Bound">f</a> <a id="2419" href="BidiPM.html#2413" class="Bound">x</a> <a id="2421" class="Symbol">(</a><a id="2422" href="BidiPM.html#2411" class="Bound">g</a> <a id="2424" href="BidiPM.html#2413" class="Bound">x</a><a id="2425" class="Symbol">)</a>
+</pre>
+<p>Notice that both of these, by necessity, state the type of <code>S</code>, but no other types. The only essential difference between the two is that in the core syntax we are explicit about <em>embedding</em> (the underlines), whereas Agda will infer these.</p>
+<p>The system we use to type the core term is the following. We have two mutually defined judgements,</p>
+<ul>
+<li><span class="math inline">\(\Gamma \vdash e \in A\)</span>, read “in context <span class="math inline">\(\Gamma\)</span>, the term <span class="math inline">\(e\)</span> <em>synthesises</em> its type <span class="math inline">\(A\)</span>”.</li>
+<li><span class="math inline">\(\Gamma \vdash A \ni s\)</span>, read “in context <span class="math inline">\(\Gamma\)</span>, the type <span class="math inline">\(A\)</span> <em>checks</em> the term <span class="math inline">\(s\)</span>”.</li>
+</ul>
+<p>Additionally, we allow a subtyping judgement <span class="math inline">\(\Gamma \vdash A \leq B\)</span>, which for the purposes of this post we can read as “<span class="math inline">\(A\)</span> is on-the-nose equal to <span class="math inline">\(B\)</span> (and they are both well formed in context <span class="math inline">\(\Gamma\)</span>)”. The rules we need so far are:</p>
+<p><span class="math display">\[
+\begin{matrix}
+\dfrac
+{(x : A) \in \Gamma}
+{\Gamma \vdash x \in A}
+\mathrm{\small var}
+&amp;
+\dfrac
+{\Gamma \vdash e \in A \qquad \Gamma, x : A \vdash B \ni s}
+{\Gamma \vdash B \ni \mathrm{let}~x = e~\mathrm{in}~s}
+\mathrm{\small let}
+\\
+\phantom 0 &amp; \phantom 0
+\\
+\dfrac
+{\Gamma \vdash A \ni s}
+{\Gamma \vdash (s : A) \in A}
+\mathrm{\small ann}
+&amp;
+\dfrac
+{\Gamma \vdash e \in A&#39; \qquad \Gamma \vdash A&#39; \leq A}
+{\Gamma \vdash A \ni \ul e}
+\mathrm{\small emb}
+\\
+\phantom 0 &amp; \phantom 0
+\\
+\dfrac
+{\Gamma \vdash f \in A \to B \qquad \Gamma \vdash A \ni s}
+{\Gamma \vdash f~s \in B}
+\mathrm{\small app}
+&amp;
+\dfrac
+{\Gamma, x : A \vdash B \ni t}
+{\Gamma \vdash A \to B \ni \lambda x. t}
+\mathrm{\small lam}
+\end{matrix}
+\]</span></p>
+<p>All of these rules are to be read in a particular order:</p>
+<ol type="1">
+<li>Start at the left of the conclusion.</li>
+<li>Work rightward until and including the term.</li>
+<li>At this point, read the hypotheses left-to-right.</li>
+<li>Resume reading the rest of the conclusion, if anything.</li>
+</ol>
+<p>Anything to the left of a term is an input, and anything to the right of a term is an output. This is why, when synthesising, the type comes after the term, but when checking, the type comes before the term.</p>
+<p>Some key points of the discipline are the following:</p>
+<ul>
+<li><em>Variables</em> can always have their type synthesised, by lookup in the context. Thus, a let-bound term must be able to synthesise its type.</li>
+<li><em>Introduction forms</em> are checked against their type. This may seem counterintuitive, but it allows us to not write types on <span class="math inline">\(\lambda\)</span>-bound variables, and helps with sum-introduction, where we discard one half of the sum type in favour of the half of which we construct an inhabitant. Also, when we have dependent types, the dependency in <span class="math inline">\(\Pi\)</span> and <span class="math inline">\(\Sigma\)</span> types is very hard to work out if we are not given it.</li>
+<li><em>Elimination forms</em> synthesise their type, with the help of the type synthesised by the thing being eliminated. This makes sense because we are often eliminating variables, which may be either <span class="math inline">\(\lambda\)</span>-bound or let-bound, and we always know the type of a variable. Also, curried function application (and, more generally, spines) works as one would expect.</li>
+<li>The rules <span class="math inline">\(\mathrm{ann}\)</span> and <span class="math inline">\(\mathrm{emb}\)</span> allow us to go back and forth between synthesising and checkable terms. Embedding the synthesising into the checkable (<span class="math inline">\(\mathrm{emb}\)</span>) is mediated by the subtyping relation. Embedding the checkable into the synthesising (<span class="math inline">\(\mathrm{ann}\)</span>) requires a type annotation, which is the type the term will synthesise when asked.</li>
+</ul>
+<p>For more principles, see anything Conor McBride has written or said.</p>
+<h2 id="dependent-types">Dependent types</h2>
+<p>To give more scope for examples below, and to motivate some of the bidirectional decisions, we shall modify the rules to introduce dependent types. Once we have read the contexts as not lists of types but <em>telescopes</em>, and formulated well formedness of types as depending on the context, there is not too much to change. To <span class="math inline">\(\mathrm{ann}\)</span>, we add (to the left) a hypothesis that <span class="math inline">\(A\)</span> is well formed in <span class="math inline">\(\Gamma\)</span>. This is all for the core rules.</p>
+<p>Now that we have <span class="math inline">\(\Pi\)</span> types (written in Agda notation), we are going to modify the rules for functions.</p>
+<p><span class="math display">\[
+\begin{matrix}
+\dfrac
+{\Gamma \vdash f \in (x : A) \to B \qquad \Gamma \vdash A \ni s}
+{\Gamma \vdash f~s \in B[(s : A)/x]}
+\mathrm{\small app}
+&amp;
+\dfrac
+{\Gamma, x : A \vdash B \ni t}
+{\Gamma \vdash (x : A) \to B \ni \lambda x. t}
+\mathrm{\small lam}
+\end{matrix}
+\]</span></p>
+<p>Now we are really glad that <span class="math inline">\(f\)</span> synthesises its type, and we don’t have to synthesise a type for a <span class="math inline">\(\lambda\)</span> expression. In particular, <span class="math inline">\(B\)</span> can be an arbitrary function of the thing it depends on, <span class="math inline">\(x : A\)</span>, so guessing it is going to be impossible in general.</p>
+<h2 id="a-negative-type">A negative type</h2>
+<p>We shall now see what happens when we try to integrate booleans into this system. Following what we know about introduction forms, it is easy to add constructors <span class="math inline">\(\mathrm{true}\)</span> and <span class="math inline">\(\mathrm{false}\)</span>.</p>
+<p>(true and false rules)</p>
+<p>Questions and comments about all of this post are welcome.</p>
+</body>
+</html>

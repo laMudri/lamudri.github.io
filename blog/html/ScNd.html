@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" xml:lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="James Wood" />
+  <meta name="dcterms.date" content="2021-02-20" />
+  <title>The Four Corners of Sequent Calculus and Natural Deduction</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script>
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    displayAlign: "left",
+    displayIndent: "1ex",
+    TeX: {
+      extensions: ["enclose.js", "bussproofs.js"],
+    }
+  });
+  </script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">The Four Corners of Sequent Calculus and Natural Deduction</h1>
+<p class="author">James Wood</p>
+<p class="date">2021-02-20</p>
+</header>
+<p><span class="math inline">\(\def\vin{\mathrel{\style{display:inline-block;transform:rotate(-90deg)}{\in}}}\)</span> <span class="math inline">\(\def\oc{\,!}\)</span></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">Explicit structural rules</th>
+<th style="text-align: left;">Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Left rules</td>
+<td style="text-align: left;">sequent calculus</td>
+<td style="text-align: left;"><span class="math inline">\(\mu\tilde\mu\)</span></td>
+</tr>
+<tr class="even">
+<td>Eliminators</td>
+<td style="text-align: left;">(no general name)</td>
+<td style="text-align: left;">natural deduction</td>
+</tr>
+</tbody>
+</table>
+<p>My aim in giving examples will be to exhibit each framework with a natural example. All of the methodologies I explain can be much extended, and I will not get anywhere near the limits of their expressive power.</p>
+<h2 id="sequent-calculus">Sequent calculus</h2>
+<p>Sequent calculus was historically the first formal calculus for proofs to really be understood.</p>
+<p>With sequent calculus, there is basically one big lemma to prove: cut elimination.</p>
+<p><span class="math display">\[
+\dfrac
+{\Gamma_l \vdash A, \Delta_l \qquad \Gamma_r, A \vdash \Delta_r}
+{\Gamma_l, \Gamma_r \vdash \Delta_l, \Delta_r}
+\textrm{\small cut}
+\]</span></p>
+<p>Sequent calculus is a low-level framework that gives us a high degree of control over sequents.</p>
+<h2 id="natural-deduction">Natural deduction</h2>
+<p>Natural deduction was introduced in the same paper as sequent calculus. However, it was only with Dag Prawitz’ work in the 1960s that natural deduction was given a theoretical understanding independent of sequent calculus. Whereas in sequent calculus, all reduction is done at the cut rule, in natural deduction, reduction happens wherever an elimination form meets an introduction form.</p>
+<p>The notation I use for natural deduction may seem somewhat archaic. It is basically the notation of Gentzen, minus the Fraktur. Gentzen ND notation can be translated to a calculus of sequents, where a derivation of <span class="math inline">\(A\)</span> with a list of undischarged hypotheses <span class="math inline">\(\Gamma\)</span> is seen as a derivation of the sequent <span class="math inline">\(\Gamma \vdash A\)</span>. Modern type theorists nearly always write the result of the translation, which I would guess is because of both page limits and the kind of clarity brought about by using a low level language.</p>
+<p>Conor McBride has, in recent times, invented a notation equivalent to Gentzen’s, making a big point of leaving free variables implicit. I use Gentzen’s notation for exactly the same reason – the machinery of natural deduction will handle free variables for us.</p>
+<p><span class="math display">\[
+\begin{gather*}
+  \begin{prooftree}
+    \AxiomC{$[A]$}
+    \noLine
+    \UnaryInfC{$\vdots$}
+    \noLine
+    \UnaryInfC{$B$}
+    \RightLabel{\small $\to$-I}
+    \UnaryInfC{$A \to B$}
+  \end{prooftree}
+  &amp;&amp;&amp;
+  \begin{prooftree}
+    \AxiomC{$A \to B$}
+    \AxiomC{$A$}
+    \RightLabel{\small $\to$-E}
+    \BinaryInfC{$B$}
+  \end{prooftree}
+\end{gather*}
+\]</span></p>
+<p><span class="math display">\[
+\begin{matrix}
+  \begin{prooftree}
+    \AxiomC{$A$}
+    \RightLabel{\small $+$-I$_l$}
+    \UnaryInfC{$A + B$}
+  \end{prooftree}
+  &amp;
+  \begin{prooftree}
+    \AxiomC{$B$}
+    \RightLabel{\small $+$-I$_r$}
+    \UnaryInfC{$A + B$}
+  \end{prooftree}
+  &amp;
+  \begin{prooftree}
+      \AxiomC{$A + B$}
+        \AxiomC{$[A]$}
+        \noLine
+        \UnaryInfC{$\vdots$}
+        \noLine
+      \UnaryInfC{$C$}
+        \AxiomC{$[B]$}
+        \noLine
+        \UnaryInfC{$\vdots$}
+        \noLine
+      \UnaryInfC{$C$}
+    \RightLabel{\small $+$-E}
+    \TrinaryInfC{$C$}
+  \end{prooftree}
+\end{matrix}
+\]</span></p>
+<p>The natural deduction equivalent of sequent calculus’s cut elimination is strong normalisation. Unlike with cut elimination, there are many smaller lemmas on the way to strong normalisation. The lemmas I choose are simultaneous renaming and simultaneous substitution, which I think best fit the spirit of having variables. I have extended the notation for binding variables so that <span class="math inline">\({{\Gamma \atop \vdots} \atop A}\)</span> is the type of terms of type <span class="math inline">\(A\)</span> with free variables <span class="math inline">\(\Gamma\)</span>. Similarly, <span class="math inline">\({{\Gamma \atop \vin} \atop A}\)</span> is the type of variables of type <span class="math inline">\(A\)</span> in <span class="math inline">\(\Gamma\)</span>.</p>
+<p><span class="math display">\[
+\mathrm{ren} : \left(\forall A.~
+{{\Gamma \atop \vin} \atop A} \to
+{{\Delta \atop \vin} \atop A}\right) \to
+{{\Gamma \atop \vdots} \atop A} \to
+{{\Delta \atop \vdots} \atop A}
+\]</span></p>
+<p><span class="math display">\[
+\mathrm{sub} : \left(\forall A.~
+{{\Gamma \atop \vin} \atop A} \to
+{{\Delta \atop \vdots} \atop A}\right) \to
+{{\Gamma \atop \vdots} \atop A} \to
+{{\Delta \atop \vdots} \atop A}
+\]</span></p>
+<p>The silly vertical notation actually helps us visualise what renaming and substitution do to the derivation they operate on. Substitution is the most familiar, with the idea being that we have a derivation for each leaf (free variable) of our starting derivation, and we are going to paste these derivations into the leaves of the starting derivation to obtain a new derivation. Renaming follows the same pattern, but instead of a derivation for each leaf, we are given a simple wiring to new free variables. Here is an example wiring:</p>
+<pre><code>A   B   C   D
+ \  ,---&#39;
+  `-+-,-.
+   /  |  \
+  C   A   A</code></pre>
+<p>I pick this particular simultaneous renaming so as to exhibit all three structural rules. We see exchange, with <span class="math inline">\(C\)</span> moving in front of <span class="math inline">\(A\)</span>, weakening, with <span class="math inline">\(B\)</span> and <span class="math inline">\(D\)</span> disappearing, and contraction, with <span class="math inline">\(A\)</span> being duplicated. Note that we read these operations on leaves top-down in natural deduction.</p>
+<p>With substitution in place, we are able to state the usual computation rules (operational semantics), and prove their strong normalisation via a variety of methods.</p>
+<h2 id="sequents-and-eliminators-dill">Sequents and eliminators – DILL</h2>
+<p>Natural deduction begins to struggle when we want variables to behave differently to how they do in NJ (intuitionistic natural deduction). In particular, given that variables make structurality implicit, we have to do something else if we want to restrict structurality.</p>
+<p>Barber’s dual intuitionistic linear logic (DILL) is a syntax capturing intuitionistic linear logic. Its distinguishing feature is a separation of intuitionistic assumptions, denoted <span class="math inline">\(\Gamma\)</span>, and linear assumptions, denoted <span class="math inline">\(\Delta\)</span>. A DILL sequent has the form <span class="math inline">\(\Gamma; \Delta \vdash A\)</span>, with <span class="math inline">\(\Gamma\)</span> only growing as (intuitionistic) variables are bound, and <span class="math inline">\(\Delta\)</span> both growing and being split as assumptions from it are used. Some typical rules are listed below.</p>
+<p><span class="math display">\[
+\begin{matrix}
+  \begin{prooftree}
+    \AxiomC{}
+    \RightLabel{\small Int-Ax}
+    \UnaryInfC{$\Gamma, A; {\cdot} \vdash A$}
+  \end{prooftree}
+  &amp;
+  \begin{prooftree}
+    \AxiomC{}
+    \RightLabel{\small Lin-Ax}
+    \UnaryInfC{$\Gamma; A \vdash A$}
+  \end{prooftree}
+\end{matrix}
+\]</span></p>
+<p><span class="math display">\[
+\begin{matrix}
+  \begin{prooftree}
+    \AxiomC{$\Gamma; {\cdot} \vdash A$}
+    \RightLabel{\small $\oc$-I}
+    \UnaryInfC{$\Gamma; {\cdot} \vdash \oc A$}
+  \end{prooftree}
+  &amp;
+  \begin{prooftree}
+    \AxiomC{$\Gamma; \Delta_l \vdash \oc A$}
+    \AxiomC{$\Gamma, A; \Delta_r \vdash B$}
+    \RightLabel{\small $\oc$-E}
+    \BinaryInfC{$\Gamma; \Delta_l, \Delta_r \vdash B$}
+  \end{prooftree}
+\end{matrix}
+\]</span></p>
+<p>These rules appear quite familiar to type theorists. Pushing all weakening of intuitionistic assumptions to the leaves (e.g, Int-Ax and Lin-Ax) and all contraction of intuitionistic assumptions to branching rules (e.g, <span class="math inline">\(!\)</span>-E) are standard tricks that bring us closer to natural deduction.</p>
+<p>However, while explicit management of assumtions, as done for the linear assumptions, is commonly done to get substructural and modal type theories, it is definitely something new compared to what we do for simple type theory. As such, many of our natural deduction techniques break down. We don’t have stability under weakening of linear assumptions, and so don’t have a chance of giving simultaneous renaming and substitution. We instead prove single substitution – a lemma half way between simultaneous substitution and cut elimination.</p>
+<p><span class="math display">\[
+\begin{prooftree}
+  \AxiomC{$\Gamma; \Delta_l \vdash A$}
+  \AxiomC{$\Gamma; \Delta_r, A \vdash B$}
+  \RightLabel{\small Lin-Subst}
+  \BinaryInfC{$\Gamma; \Delta_l, \Delta_r \vdash B$}
+\end{prooftree}
+\]</span></p>
+<p>Like the cut rule, single substitution introduces a new formula <span class="math inline">\(A\)</span> into its two premises in a complementary way. By using sequents, we have made it easy to control structurality, and this substitution rule is clearly linear. However, like simultaneous substitution, the proof only requires induction on one of the derivations, owing to the lack of left rules. Also like simultaneous substitution, a derivation free of single substitutions may still contain redexes (where introduction and elimination forms meet), so single substitution does not establish normalisation.</p>
+<h2 id="left-rules-and-variables-μμ">Left rules and variables – μμ̃</h2>
+<p><span class="math inline">\(\mu\tilde\mu\)</span> (also known as <span class="math inline">\(\bar\lambda\mu\tilde\mu\)</span> or <em>system L</em>, and closely related to Wadler’s dual calculus) was originally designed as a way to study <span class="math inline">\(\lambda\)</span>-calculus using sequent calculus rather than natural deduction. However, the metatheory shows that we use concepts from both systems.</p>
+<p>As I presented natural deduction using Gentzen’s notation, I will similarly present a <span class="math inline">\(\mu\tilde\mu\)</span> system in the later <em>arborescente</em> style of Herbelin, featuring vertical dots and square brackets. There are three judgement forms: terms <span class="math inline">\(\vdash A\)</span>, coterms <span class="math inline">\(A \vdash\)</span>, and commands <span class="math inline">\(\vdash\)</span>. There are several ways to understand these judgements: operationally, a term of type <span class="math inline">\(A\)</span> is a program that produces an inhabitant of <span class="math inline">\(A\)</span>, a coterm of type <span class="math inline">\(A\)</span> is a program that consumes an inhabitant of <span class="math inline">\(A\)</span>, and a command matches a producer with a consumer; logically, a term is a proof of its type, a coterm is a refutation of its type, and a command observes a contradicting proof and refutation. A program consuming an <span class="math inline">\(A\)</span> is distinguished from a program depending on a hypothetical term (variable) of type <span class="math inline">\(A\)</span>, but the rules <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\tilde\mu\)</span>, and Cut allow us to convert between these notions.</p>
+<p><span class="math display">\[
+\begin{matrix}
+  \begin{prooftree}
+    \AxiomC{$[A \vdash]$}
+    \noLine
+    \UnaryInfC{$\vdots$}
+    \noLine
+    \UnaryInfC{$\vdash$}
+    \RightLabel{\small $\mu$}
+    \UnaryInfC{$\vdash A$}
+  \end{prooftree}
+  &amp;
+  \begin{prooftree}
+    \AxiomC{$[\vdash A]$}
+    \noLine
+    \UnaryInfC{$\vdots$}
+    \noLine
+    \UnaryInfC{$\vdash$}
+    \RightLabel{\small $\tilde\mu$}
+    \UnaryInfC{$A \vdash$}
+  \end{prooftree}
+  &amp;
+  \begin{prooftree}
+    \AxiomC{$\vdash A$}
+    \AxiomC{$A \vdash$}
+    \RightLabel{\small Cut}
+    \BinaryInfC{$\vdash$}
+  \end{prooftree}
+\end{matrix}
+\]</span></p>
+<p>For each connective, we give right (term) rules, left (coterm) rules, and computation rules. To carry on earlier examples, we can introduce an additive disjunction connective.</p>
+<p><span class="math display">\[
+\begin{matrix}
+  \begin{prooftree}
+    \AxiomC{$\vdash A$}
+    \RightLabel{\small $+$-R$_l$}
+    \UnaryInfC{$\vdash A + B$}
+  \end{prooftree}
+  &amp;
+  \begin{prooftree}
+    \AxiomC{$\vdash B$}
+    \RightLabel{\small $+$-R$_r$}
+    \UnaryInfC{$\vdash A + B$}
+  \end{prooftree}
+  &amp;
+  \begin{prooftree}
+      \AxiomC{$[\vdash A]$}
+      \noLine
+      \UnaryInfC{$\vdots$}
+      \noLine
+    \UnaryInfC{$\vdash$}
+      \AxiomC{$[\vdash B]$}
+      \noLine
+      \UnaryInfC{$\vdots$}
+      \noLine
+    \UnaryInfC{$\vdash$}
+    \RightLabel{\small $+$-L}
+    \BinaryInfC{$A + B \vdash$}
+  \end{prooftree}
+\end{matrix}
+\]</span></p>
+<p>Here is a computation rule (there is a very similar one for <span class="math inline">\(+\)</span>-R<span class="math inline">\(_l\)</span>):</p>
+<p><span class="math display">\[
+\begin{prooftree}
+    \AxiomC{$\mathcal D$}
+    \noLine
+    \UnaryInfC{$\vdash A$}
+    \RightLabel{\small $+$-R$_l$}
+  \UnaryInfC{$\vdash A + B$}
+      \AxiomC{$[x : {} \vdash A]$}
+      \noLine
+      \UnaryInfC{$\mathcal E$}
+      \noLine
+    \UnaryInfC{$\vdash$}
+      \AxiomC{$[y : {} \vdash B]$}
+      \noLine
+      \UnaryInfC{$\mathcal F$}
+      \noLine
+    \UnaryInfC{$\vdash$}
+    \RightLabel{\small $+$-L}
+  \BinaryInfC{$A + B \vdash$}
+  \RightLabel{\small Cut}
+  \BinaryInfC{$\vdash$}
+\end{prooftree}
+\rightsquigarrow
+\mathcal E[\mathcal D/x]
+\]</span></p>
+<p>This computation rule hints towards some of the metatheoretical lemmas we need for <span class="math inline">\(\mu\tilde\mu\)</span>.</p>
+<ol type="1">
+<li>We need <em>substitution</em> to make sense of <span class="math inline">\(\mathcal E[\mathcal D/x]\)</span>.</li>
+<li>This reduction removes a cut, and forms part of a <em>cut elimination</em> procedure.</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+</body>
+</html>
